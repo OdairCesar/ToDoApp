@@ -14,10 +14,13 @@ export default class ToDo extends Component{
         this.handleAdd = this.handleAdd.bind(this)
         this.handleChange = this.handleChange.bind(this)
         this.handleRemove = this.handleRemove.bind(this)
+        this.handleMarkAsDone = this.handleMarkAsDone.bind(this)
+        this.handleMarkAsPending = this.handleMarkAsPending.bind(this)
 
         this.refhesh()
     }
 
+    /* Handles com utilização do backend*/
     handleAdd(){
         const description = this.state.description
         axios.post(URL, {description})
@@ -26,6 +29,16 @@ export default class ToDo extends Component{
 
     handleRemove(toDo){
         axios.delete(`${URL}/${toDo._id}`)
+            .then(resp => this.refhesh())
+    }
+
+    handleMarkAsDone(toDo){
+        axios.put(`${URL}/${toDo._id}`, { ...toDo, done: true})
+            .then(resp => this.refhesh())
+    }
+
+    handleMarkAsPending(toDo){
+        axios.put(`${URL}/${toDo._id}`, { ...toDo, done: false})
             .then(resp => this.refhesh())
     }
 
@@ -38,6 +51,7 @@ export default class ToDo extends Component{
             }))
     }
 
+    /* Handles sem utilização do backend*/
     handleChange(e){
         this.setState({ ...this.state, description: e.target.value })
     }
@@ -54,7 +68,9 @@ export default class ToDo extends Component{
                     handleAdd={this.handleAdd} />
                 <ToDoList 
                     list={this.state.list}
-                    handleRemove={this.handleRemove} />
+                    handleRemove={this.handleRemove} 
+                    handleMarkAsDone={this.handleMarkAsDone}
+                    handleMarkAsPending={this.handleMarkAsPending}/>
             </div>
         )  
     }

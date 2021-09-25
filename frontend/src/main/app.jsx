@@ -5,6 +5,7 @@ import Menu from '../template/menu'
 
 import 'modules/bootstrap/dist/css/bootstrap.min.css'
 import 'modules/font-awesome/css/font-awesome.min.css'
+import '../template/custom.css'
 
 export default function App(props){
     return(

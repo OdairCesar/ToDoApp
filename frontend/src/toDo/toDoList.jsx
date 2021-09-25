@@ -15,11 +15,13 @@ export default function TodoList (props) {
                         style='success' 
                         icon='check' 
                         hide={toDo.done}
+                        onClick={() => props.handleMarkAsDone(toDo)}
                     />
                     <IconButton 
                         style='warning' 
                         icon='undo' 
                         hide={!toDo.done} 
+                        onClick={() => props.handleMarkAsPending(toDo)}
                     />
                     <IconButton 
                         style='danger'  
